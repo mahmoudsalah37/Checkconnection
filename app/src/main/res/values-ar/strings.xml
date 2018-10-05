@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">لمبة الأنترنت</string>
+    <string name="floating_lamp">اللمبة الطافية</string>
+    <string name="the_check_start">بدأ التحقق من الأتصال</string>
+    <string name="the_check_began">بدأ التحقق من الأتصال</string>
+    <string name="the_check_stopped">توقف التحقق من الأتصال</string>
+    <string name="disconnect">غير متصل</string>
+    <string name="connected">متصل</string>
+    <string name="disconnected">غير متصل</string>
+    <string name="stopped">توقف</string>
+</resources>

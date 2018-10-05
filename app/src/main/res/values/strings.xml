@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">lamp internet</string>
+    <string name="todo" translatable="false">TODO</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="floating_lamp">Floating lamp</string>
+    <string name="the_check_start">The check start</string>
+    <string name="the_check_began">The check began</string>
+    <string name="the_check_stopped">The check stopped</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="stopped">Stopped</string>
+</resources>
