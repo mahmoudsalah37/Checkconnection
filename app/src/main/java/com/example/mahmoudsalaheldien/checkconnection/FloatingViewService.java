@@ -3,6 +3,7 @@ package com.example.mahmoudsalaheldien.checkconnection;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -23,13 +24,17 @@ public class FloatingViewService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        //Inflate the floating view layout we created
-
+        int layout_parms;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            layout_parms = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            layout_parms = WindowManager.LayoutParams.TYPE_PHONE;
+        }
         //Add the view to the window.
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
+                layout_parms,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
@@ -37,6 +42,7 @@ public class FloatingViewService extends Service {
         params.gravity = Gravity.TOP | Gravity.LEFT;        //Initially view will be added to top-left corner
         params.x = 0;
         params.y = 100;
+        params.height = 100;
 
         //Add the view to the window
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
