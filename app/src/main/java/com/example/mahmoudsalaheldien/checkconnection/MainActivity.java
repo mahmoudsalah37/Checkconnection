@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }.start();
                     }
-                }, 0, 60);
+                }, 0, 100);
         initializeView();
 
     }
