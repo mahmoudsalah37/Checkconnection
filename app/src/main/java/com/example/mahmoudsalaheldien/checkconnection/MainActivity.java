@@ -17,7 +17,6 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
-    private CheckBox checkBox;
     private TextView textView;
     private GetSpeedTestHostsHandler getSpeedTestHostsHandler;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         imageView = findViewById(R.id.imageView);
-        checkBox = findViewById(R.id.checkBox);
         textView = findViewById(R.id.textView);
         getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
         getSpeedTestHostsHandler.start();
@@ -46,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (checkBox.isChecked()) {
-                                            if (textView.getText().equals("stopped"))
-                                                checkBox.setText(R.string.the_check_began);
                                             if (getSpeedTestHostsHandler.isAlive()) {
                                                 imageView.setImageResource(R.drawable.bright);
                                                 textView.setText(R.string.connected);
@@ -59,15 +54,9 @@ public class MainActivity extends AppCompatActivity {
                                                 textView.setText(R.string.disconnected);
                                                 im.setImageResource(R.drawable.extinguished);
                                             }
-                                            getSpeedTestHostsHandler = null;
+                                            //getSpeedTestHostsHandler = null;
                                             getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
                                             getSpeedTestHostsHandler.start();
-                                        } else {
-                                            imageView.setImageResource(R.drawable.power);
-                                            textView.setText(R.string.stopped);
-                                            checkBox.setText(R.string.the_check_stopped);
-                                            im.setImageResource(R.drawable.power);
-                                        }
                                     }
                                 });
                                 super.run();
