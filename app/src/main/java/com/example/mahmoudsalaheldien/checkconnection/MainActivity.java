@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                            if (getSpeedTestHostsHandler.isAlive()) {
+                                        if (getSpeedTestHostsHandler.isAlive() ) {
                                                 imageView.setImageResource(R.drawable.bright);
                                                 textView.setText(R.string.connected);
                                                 im.setImageResource(R.drawable.bright);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }.start();
                     }
-                }, 0, 100);
+                }, 0, 150);
         initializeView();
 
     }
