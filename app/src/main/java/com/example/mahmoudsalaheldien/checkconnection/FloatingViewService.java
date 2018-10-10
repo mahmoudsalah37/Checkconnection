@@ -25,7 +25,7 @@ public class FloatingViewService extends Service {
     public void onCreate() {
         super.onCreate();
         int layout_parms;
-        // fox
+        // fox1
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layout_parms = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
