@@ -8,14 +8,16 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker;
+import com.treebo.internetavailabilitychecker.InternetConnectivityListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements InternetConnectivityListener {
     private ImageView imageView;
     private TextView textView;
     private GetSpeedTestHostsHandler getSpeedTestHostsHandler;
@@ -24,9 +26,24 @@ public class MainActivity extends AppCompatActivity {
     private ImageView im;
 
     @Override
+    public void onInternetConnectivityChanged(boolean isConnected) {
+        //do something based on connectivity
+        if (isConnected) {
+            imageView.setImageResource(R.drawable.bright);
+            textView.setText(R.string.connected);
+            im.setImageResource(R.drawable.bright);
+        } else {
+            imageView.setImageResource(R.drawable.extinguished);
+            textView.setText(R.string.disconnected);
+            im.setImageResource(R.drawable.extinguished);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        InternetAvailabilityChecker.init(this);
         //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
@@ -44,26 +61,30 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (getSpeedTestHostsHandler.isAlive() ) {
-                                                imageView.setImageResource(R.drawable.bright);
-                                                textView.setText(R.string.connected);
-                                                im.setImageResource(R.drawable.bright);
+                                       /* if (getSpeedTestHostsHandler.isAlive()) {
+                                            imageView.setImageResource(R.drawable.bright);
+                                            textView.setText(R.string.connected);
+                                            im.setImageResource(R.drawable.bright);
 
-                                            } else {
-                                                imageView.setImageResource(R.drawable.extinguished);
-                                                textView.setText(R.string.disconnected);
-                                                im.setImageResource(R.drawable.extinguished);
-                                            }
-                                            //getSpeedTestHostsHandler = null;
-                                            getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
-                                            getSpeedTestHostsHandler.start();
+                                        } else {
+                                            imageView.setImageResource(R.drawable.extinguished);
+                                            textView.setText(R.string.disconnected);
+                                            im.setImageResource(R.drawable.extinguished);
+                                        }
+                                        //getSpeedTestHostsHandler = null;
+                                        getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
+                                        getSpeedTestHostsHandler.start();*/
+                                        InternetAvailabilityChecker.init(MainActivity.this);
+                                        InternetAvailabilityChecker mInternetAvailabilityChecker = InternetAvailabilityChecker.getInstance();
+                                        mInternetAvailabilityChecker.addInternetConnectivityListener(MainActivity.this);
+                                        mInternetAvailabilityChecker.onNetworkChange(true);
                                     }
                                 });
                                 super.run();
                             }
                         }.start();
                     }
-                }, 0, 150);
+                }, 0, 5000);
         initializeView();
 
     }

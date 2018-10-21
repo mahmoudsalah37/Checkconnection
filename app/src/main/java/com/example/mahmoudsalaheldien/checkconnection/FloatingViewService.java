@@ -89,6 +89,6 @@ public class FloatingViewService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
+        /*if (mFloatingView != null) mWindowManager.removeView(mFloatingView);*/
     }
 }
