@@ -20,14 +20,12 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements InternetConnectivityListener {
     private ImageView imageView;
     private TextView textView;
-    private GetSpeedTestHostsHandler getSpeedTestHostsHandler;
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
     private View mFloatingView;
     private ImageView im;
 
     @Override
     public void onInternetConnectivityChanged(boolean isConnected) {
-        //do something based on connectivity
         if (isConnected) {
             imageView.setImageResource(R.drawable.bright);
             textView.setText(R.string.connected);
@@ -47,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements InternetConnectiv
         //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
-        getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
-        getSpeedTestHostsHandler.start();
         mFloatingView = LayoutInflater.from(this).inflate(R.layout.layout_floating_widget, null);
         im = mFloatingView.findViewById(R.id.collapsed_iv);
         Timer t = new Timer();
@@ -61,19 +57,6 @@ public class MainActivity extends AppCompatActivity implements InternetConnectiv
                                 MainActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                       /* if (getSpeedTestHostsHandler.isAlive()) {
-                                            imageView.setImageResource(R.drawable.bright);
-                                            textView.setText(R.string.connected);
-                                            im.setImageResource(R.drawable.bright);
-
-                                        } else {
-                                            imageView.setImageResource(R.drawable.extinguished);
-                                            textView.setText(R.string.disconnected);
-                                            im.setImageResource(R.drawable.extinguished);
-                                        }
-                                        //getSpeedTestHostsHandler = null;
-                                        getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
-                                        getSpeedTestHostsHandler.start();*/
                                         InternetAvailabilityChecker.init(MainActivity.this);
                                         InternetAvailabilityChecker mInternetAvailabilityChecker = InternetAvailabilityChecker.getInstance();
                                         mInternetAvailabilityChecker.addInternetConnectivityListener(MainActivity.this);
